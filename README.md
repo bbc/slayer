@@ -8,7 +8,7 @@ A _peak_ or _spike_ in a time series is a the highest value before the trend sta
 In reality you do not need all the spikes. You only need **the highest spike amongst them**.
 _Slayer_ helps to identify these local peaks easily.
 
-[![](chart.png)](http://blogs.sas.com/content/iml/2013/08/28/finite-diff-estimate-maxi/)
+[![](chart.png?raw=1)](http://blogs.sas.com/content/iml/2013/08/28/finite-diff-estimate-maxi/)
 
 # Install
 
@@ -95,7 +95,7 @@ The `slayer()` factory returns a new chainable instance of _Slayer_.
 The optional `config` object enables you to adjust its behaviour according to your needs:
 
 - `minPeakDistance` (_Integer_): size of the values overlooked window. _Default is `30`_;
-- `minPeakHeight` (_Number_): discard any value below that treshold. _Default is `0`_.
+- `minPeakHeight` (_Number_): discard any value below that threshold. _Default is `0`_.
 
 Returns a `slayer` chainable object.
 
