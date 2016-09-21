@@ -35,7 +35,7 @@
   "license": "Apache-2",
   "devDependencies": {
     "benchmark": "^1.0.0",
-    "blanket": "^1.1.6",
+    "blanket": "1.1.9",
     "chai": "^1.9.1",
     "eslint": "^0.5.0",
     "mocha": "^1.20.1",
