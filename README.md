@@ -1,4 +1,4 @@
-# Slayer [![Build Status](https://secure.travis-ci.org/bbcrd/slayer.png?branch=master)](http://travis-ci.org/bbcrd/slayer.js)
+# Slayer [![Build Status](https://secure.travis-ci.org/bbc/slayer.png?branch=master)](http://travis-ci.org/bbc/slayer.js)
 
 > JavaScript time series spike detection for Node.js; like the Octave [findpeaks](http://www.mathworks.co.uk/help/signal/ref/findpeaks.html) function.
 
@@ -24,7 +24,7 @@ _Slayer_ helps to identify these local peaks easily.
     <tr>
       <td><code>npm install --save slayer</code></td>
       <td>-</td>
-      <td><a href="https://github.com/bbcrd/slayer/archive/master.zip">download zip file</a></td>
+      <td><a href="https://github.com/bbc/slayer/archive/master.zip">download zip file</a></td>
     </tr>
   </tbody>
 </table>
@@ -175,7 +175,7 @@ Returns `undefined`.
 
 # Contributing and testing
 
-If you wish to contribute the project with code but you fear to break something, no worries as [TravisCI](https://travis-ci.org/bbcrd/slayer)
+If you wish to contribute the project with code but you fear to break something, no worries as [TravisCI](https://travis-ci.org/bbc/slayer)
 takes care of this for each Pull Request.
 
 Nobody will blame your code. And feel free to ask _before_ making a pull request.
