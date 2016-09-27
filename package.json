@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --reporter dot 'test/**/*.js'",
-    "posttest": "npm run benchmarks",
     "eslint": "eslint ./lib/",
     "benchmarks": "./bin/run-benchmarks.js"
   },
@@ -14,7 +13,7 @@
     "url": "https://github.com/bbc/slayer.git"
   },
   "nyc": {
-    "check-coverage": true,
+    "check-coverage": false,
     "reporter": [
       "text",
       "html"
@@ -38,6 +37,7 @@
     "chai": "^3.5.0",
     "eslint": "^0.5.0",
     "mocha": "^3.1.0",
+    "nyc": "^8.3.0",
     "sinon": "^1.9.1",
     "sinon-chai": "^2.5.0"
   },
