@@ -61,18 +61,18 @@ slayer()
 
 ## Streaming detection
 
-Not yet implemented.
-
 ```js
-var slayer = slayer().pipe(process.stdin);
+const fs = require('fs');
+const csv = require('csv2');
+const fileStream = fs.createReadStream('./big-data.csv');
 
-slayer.on('peak', function onSpike(spike){
-  console.log(spike);      // { x: 4, y: 12 }
-});
-
-slayer.on('end', function(){
-  console.log('Processing done!');
-});
+filestream
+  .pipe(csv())
+  .pipe(slayer().createReadStream())
+  .on('error', err => console.error(err))
+  .on('data', spike => {
+    console.log(spike);      // { x: 4, y: 12 }    
+  });
 ```
 
 
