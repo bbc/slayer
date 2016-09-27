@@ -44,6 +44,6 @@
   },
   "dependencies": {
     "es6-promise": "^4.0.3",
-    "lodash.defaults": "^2.4.1"
+    "xtend": "^4.0.1"
   }
 }
