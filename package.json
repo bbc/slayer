@@ -4,21 +4,21 @@
   "description": "JavaScript time series spike detection for Node.js; like the Octave findpeaks function.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run unit-tests",
+    "test": "nyc mocha --reporter dot 'test/**/*.js'",
+    "posttest": "npm run benchmarks",
     "eslint": "eslint ./lib/",
-    "unit-tests": "mocha --reporter dot 'test/**/*.js'",
-    "test-watch": "mocha --reporter dot --watch 'test/**/*.js'",
-    "bench": "./bin/run-benchmarks.js"
+    "benchmarks": "./bin/run-benchmarks.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/bbc/slayer.git"
   },
-  "config": {
-    "blanket": {
-      "pattern": "/lib/",
-      "data-cover-never": "//(node_modules|test|entropy|average)/gm"
-    }
+  "nyc": {
+    "check-coverage": true,
+    "reporter": [
+      "text",
+      "html"
+    ]
   },
   "keywords": [
     "maths",
@@ -35,10 +35,9 @@
   "license": "Apache-2",
   "devDependencies": {
     "benchmark": "^1.0.0",
-    "blanket": "1.1.9",
-    "chai": "^1.9.1",
+    "chai": "^3.5.0",
     "eslint": "^0.5.0",
-    "mocha": "^1.20.1",
+    "mocha": "^3.1.0",
     "sinon": "^1.9.1",
     "sinon-chai": "^2.5.0"
   },
