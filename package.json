@@ -32,7 +32,7 @@
     "algorithm"
   ],
   "author": "Thomas Parisot <thomas.parisot@bbc.co.uk> (https://oncletom.io)",
-  "license": "Apache-2",
+  "license": "Apache-2.0",
   "devDependencies": {
     "benchmark": "^1.0.0",
     "chai": "^3.5.0",
