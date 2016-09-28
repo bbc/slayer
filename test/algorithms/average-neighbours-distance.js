@@ -1,13 +1,14 @@
 'use strict';
 
 var slayer = require('../../index.js');
+var algorithm = require('../../lib/algorithms/average-neighbours-distance.js');
 var expect = require("chai").expect;
 
 describe('Average Neighbours Distance', function(){
   var spikes;
 
   beforeEach(function(){
-    spikes = slayer().use('average-neighbours-distance');
+    spikes = slayer().use(algorithm);
   });
 
   afterEach(function(){

@@ -54,10 +54,9 @@ describe('Slayer', function(){
   });
 
   describe('.use()', function(){
-    it('should load a Node module as an algorithm if the provided argument is a string', function(){
-      var s = slayer().use('entropy');
+    it('should throw an error if the argument is a string', function(){
 
-      expect(s.algorithm.name).to.equal('entropy');
+      expect(function(){ slayer().use('entropy') }).to.throw();
     });
 
     it('should use a JavaScript function as an algorithm if the provided argument is a function', function(){
@@ -65,18 +64,6 @@ describe('Slayer', function(){
 
       var s = slayer().use(spy);
       expect(s.algorithm).to.equal(spy);
-    });
-
-    it('should throw if the node module cannot be found', function(){
-      expect(function(){
-        slayer({ algorithm: 'dummy-module' });
-      }).to.throw(Error);
-    });
-
-    it('should throw if the provided argument is not a function', function(){
-      expect(function(){
-        slayer({ algorithm: {} });
-      }).to.throw(TypeError);
     });
   });
 });
