@@ -13,7 +13,7 @@
     "url": "https://github.com/bbc/slayer.git"
   },
   "nyc": {
-    "check-coverage": false,
+    "check-coverage": true,
     "reporter": [
       "text",
       "html"
