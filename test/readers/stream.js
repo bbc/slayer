@@ -2,24 +2,21 @@
 
 var slayer = require('../../index.js');
 var fs = require('fs');
-var csv = require('csv2');
+var split = require('split');
 var path = require('path');
 var expect = require("chai").expect;
 var DEFAULTS = {
-  minPeakDistance: 20,
+  minPeakDistance: 30,
   minPeakHeight: 4.1
 };
 
 function getFile() {
-  return fs.createReadStream(path.join(__dirname, '..', 'fixtures', 'default.csv'))
-    .pipe(csv());
+  return fs.createReadStream(path.join(__dirname, '..', 'fixtures', 'default.txt'))
+    .pipe(split());
 }
 
 function getSlayer() {
-  return slayer(DEFAULTS)
-    .y(function(d) {
-      return d[2];
-    });
+  return slayer(DEFAULTS);
 }
 
 describe('Slayer.createReadStream', function(){
@@ -33,13 +30,24 @@ describe('Slayer.createReadStream', function(){
       })
       .on('end', function(){
         expect(spikes).to.deep.equal([
-          { x: 77, y: '4.107187' },
-          { x: 78, y: '4.140581' },
-          { x: 79, y: '4.149971' },
-          { x: 83, y: '4.189285' },
-          { x: 84, y: '4.217253' },
-          { x: 85, y: '4.231319' },
-          { x: 87, y: '4.245672' }
+          { x: 99, y: '4.262610' },
+        ]);
+        done();
+      })
+      .on('error', done);
+  });
+
+  it('should extract values from a stream smaller than the sliding window', function(done){
+    var spikes = [];
+
+    getFile()
+      .pipe(getSlayer().createReadStream({ slidingWindowSize: 200 }))
+      .on('data', function(spike) {
+        spikes.push(spike);
+      })
+      .on('end', function(d){
+        expect(spikes).to.deep.equal([
+          { x: 99, y: '4.262610' },
         ]);
         done();
       })
