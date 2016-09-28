@@ -5,6 +5,7 @@ node_js:
 - v4
 - v6
 - node
+sudo: false
 deploy:
   provider: npm
   email: irfs@bbc.co.uk
