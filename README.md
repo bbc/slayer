@@ -62,16 +62,11 @@ slayer()
 ## Streaming detection
 
 ```js
-const fs = require('fs');
-const csv = require('csv2');
-const fileStream = fs.createReadStream('./big-data.csv');
-
-filestream
-  .pipe(csv())
+someStream
   .pipe(slayer().createReadStream())
   .on('error', err => console.error(err))
   .on('data', spike => {
-    console.log(spike);      // { x: 4, y: 12 }    
+    console.log(spike);      // { x: 4, y: 12 }
   });
 ```
 
@@ -169,6 +164,30 @@ slayer()
 ```
 
 Returns an [ES2015 `Promise` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+## `.createReadStream(options)`
+
+Processes a stream of data and emits a `data` event each time a spike is found.
+
+You can optionally pass an `options` object to tweak and adjust the precision of the analysis:
+
+- `slidingWindowSize` (_Integer_): size of the sliding window. _Default is `50`_;
+- `slidingWindowOverlap` (_Number_): number of elements to keep ahead of the sliding window. _Default is `20`_.
+
+With this setup, `slayer` will read *70* element at once and will perform the next analysis every *50* new elements.
+
+The following example demonstrates the streaming analysis of a file containing single values on each row of the document:
+
+```js
+var split = require('split');
+
+fs.createReadStream('./big-big-data.txt')
+  .pipe(split())
+  .pipe(slayer().createReadStream())
+  .on('data', spike => console.log(spike));
+```
+
+Returns a [`ReadableStream`](https://nodejs.org/api/stream.html#stream_class_stream_readable).
 
 # Contributing and testing
 
