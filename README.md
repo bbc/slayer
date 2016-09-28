@@ -40,7 +40,7 @@ The following examples illustrates common use cases.
 var slayer = require('slayer');
 var arrayData = [0, 0, 0, 12, 0, …];
 
-slayer().fromArray(arrayData, function(err, spikes){
+slayer().fromArray(arrayData).then(spikes => {
   console.log(spikes);      // [ { x: 4, y: 12 }, { x: 12, y: 25 } ]
 });
 ```
@@ -52,8 +52,9 @@ var slayer = require('slayer');
 var arrayData = […, { date: '…', value: 12 }, …];
 
 slayer()
-  .y(function(item){ return item.value; })
-  .fromArray(arrayData, function(err, spikes){
+  .y(item => item.value)
+  .fromArray(arrayData)
+  .then(spikes => {
     console.log(spikes);    // [ { x: 4, y: 12 }, { x: 12, y: 25 } ]
   });
 ```
@@ -107,10 +108,9 @@ It will return this value as the `y` value of a spike object.
 
 ```js
 slayer()
-  .y(function(item){
-    return item.value;     // considering item looks like `{ value: 12 }`
-  })
-  .fromArray(arrayData, function(err, spikes){
+  .y(item => item.value)   // considering item looks like `{ value: 12 }`
+  .fromArray(arrayData)
+  .then(spikes => {
     console.log(spikes);   // { x: 4, y: 12 }
   });
 ```
@@ -125,11 +125,10 @@ It will return this value as the `x` value of a spike object.
 
 ```js
 slayer()
-  .x(function(item, i){
-    return item.date;      // considering item looks like `{ date: '2014-04-12T17:31:40.000Z', value: 12 }`
-  })
-  .fromArray(arrayData, function(err, spikes){
-    console.log(spikes);   // { x: '2014-04-12T17:31:40.000Z', y: 12 }
+  .x((item, i) => item.date)  // considering item looks like `{ date: '2014-04-12T17:31:40.000Z', value: 12 }`
+  .fromArray(arrayData)
+  .then(spikes => {
+    console.log(spikes);      // { x: '2014-04-12T17:31:40.000Z', y: 12 }
   });
 ```
 
@@ -143,35 +142,33 @@ It is useful if you want to add extra data to the returned spike object.
 
 ```js
 slayer()
-  .transform(function(xyItem, originalItem, i){
+  .transform((xyItem, originalItem, i) => {
     xyItem.id = originalItem.id;
 
     return xyItem;
   })
-  .fromArray(arrayData, function(err, spikes){
+  .fromArray(arrayData)
+  .then(spikes => {
     console.log(spikes);   // { x: 4, y: 12, id: '21232f297a57a5a743894a0e4a801fc3' }
   });
 ```
 
 Returns a mutated `slayer` chainable object.
 
-## `.fromArray(data, onComplete)`
+## `.fromArray(data)`
 
-Processes an array of data and calls an `onComplete` callback with an `error` and `spikes` parameters.
+Processes a finite array of data and returns them at once.
 
 ```js
 slayer()
-  .fromArray(arrayData, function(err, spikes){
-    if (err){
-      console.error(err);
-      return;
-    }
+  .fromArray(arrayData)
+  .then(spikes => {
 
     console.log(spikes);   // { x: 4, y: 12, id: '21232f297a57a5a743894a0e4a801fc3' }
   });
 ```
 
-Returns `undefined`.
+Returns an [ES2015 `Promise` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
 # Contributing and testing
 
@@ -196,4 +193,3 @@ npm test
 > http://www.apache.org/licenses/LICENSE-2.0
 >
 > Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-

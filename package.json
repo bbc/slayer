@@ -43,6 +43,7 @@
     "sinon-chai": "^2.5.0"
   },
   "dependencies": {
+    "es6-promise": "^4.0.3",
     "lodash.defaults": "^2.4.1"
   }
 }
