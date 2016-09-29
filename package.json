@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run unit-tests",
     "eslint": "eslint ./lib/",
-    "unit-tests": "mocha --reporter dot --reporter html-cov --require blanket 'test/**/*.js' > coverage.html",
+    "unit-tests": "mocha --reporter dot 'test/**/*.js'",
     "test-watch": "mocha --reporter dot --watch 'test/**/*.js'",
     "bench": "./bin/run-benchmarks.js"
   },
