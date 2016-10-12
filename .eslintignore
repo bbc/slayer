@@ -1,0 +1,2 @@
+lib/algorithms/*.js
+!lib/algorithms/default.js
