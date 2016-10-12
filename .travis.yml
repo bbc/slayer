@@ -1,2 +1,16 @@
 language: node_js
-node_js: '0.10'
+node_js:
+- '0.10'
+- '0.12'
+- v4
+- v6
+- node
+sudo: false
+deploy:
+  provider: npm
+  email: irfs@bbc.co.uk
+  api_key:
+    secure: h4cWjHL45E52vSHbAFLL6xn0HmoZcjkAoTwy+Rn+jowmgNEdVjZJJTf8jITwgNAwVoCShSCJvGKb1Wj7nk/CJIg0RLFiIrYV4P1sgQZRKhW7gZ/DpVYXoPO4Z2upEH0cm2jX5DDe4gzDV2qlAJ70U0SZ+boECYyrQ3MHH7LSZdY=
+  on:
+    tags: true
+    repo: bbc/slayer

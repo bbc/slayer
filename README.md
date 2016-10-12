@@ -61,18 +61,13 @@ slayer()
 
 ## Streaming detection
 
-Not yet implemented.
-
 ```js
-var slayer = slayer().pipe(process.stdin);
-
-slayer.on('peak', function onSpike(spike){
-  console.log(spike);      // { x: 4, y: 12 }
-});
-
-slayer.on('end', function(){
-  console.log('Processing done!');
-});
+someStream
+  .pipe(slayer().createReadStream())
+  .on('error', err => console.error(err))
+  .on('data', spike => {
+    console.log(spike);      // { x: 4, y: 12 }
+  });
 ```
 
 
@@ -170,6 +165,31 @@ slayer()
 
 Returns an [ES2015 `Promise` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
+## `.createReadStream(options)`
+
+Processes a stream of data and emits a `data` event each time a spike is found.
+Although you might notice a slight delay as *spike deduplication* happens under the hood.
+
+You can optionally pass an `options` object to tweak and adjust the precision of the analysis:
+
+- `bufferingFactor` (_Number_): buffer ratio of the sliding window, against `minPeakDistance`. _Default is `4`_;
+- `lookAheadFactor` (_Number_): additional buffer ratio to look ahead, against the sliding window size. _Default is `0.33`_.
+
+With this setup, `slayer` will buffer *4 times* the amount of `minPeakDistance` with an additional *0.33 times* before performing an analysis before moving from *4 times* the amount of `minPeakDistance`.
+
+The following example demonstrates the streaming analysis of a file containing single values on each row of the document:
+
+```js
+var split = require('split');
+
+fs.createReadStream('./big-big-data.txt')
+  .pipe(split())
+  .pipe(slayer().createReadStream())
+  .on('data', spike => console.log(spike));
+```
+
+Returns a [`ReadableStream`](https://nodejs.org/api/stream.html#stream_class_stream_readable).
+
 # Contributing and testing
 
 If you wish to contribute the project with code but you fear to break something, no worries as [TravisCI](https://travis-ci.org/bbc/slayer)
@@ -184,9 +204,15 @@ If you want to run the tests locally, simply run:
 npm test
 ```
 
+If you want to run them continuously, then run:
+
+```bash
+npm test -- --watch
+```
+
 # Licence
 
-> Copyright 2014 British Broadcasting Corporation
+> Copyright 2016 British Broadcasting Corporation
 >
 > Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 >

@@ -1,1 +1,3 @@
-coverage.html
+coverage
+.nyc_output
+*.log
