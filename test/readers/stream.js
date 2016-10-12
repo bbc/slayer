@@ -37,11 +37,11 @@ describe('Slayer.createReadStream', function(){
       .on('error', done);
   });
 
-  it('should extract values from a stream smaller than the sliding window', function(done){
+  it('should extract values from a stream bigger than the sliding window', function(done){
     var spikes = [];
 
     getFile()
-      .pipe(getSlayer().createReadStream({ slidingWindowSize: 200 }))
+      .pipe(getSlayer().createReadStream({ bufferingFactor: 1 }))
       .on('data', function(spike) {
         spikes.push(spike);
       })

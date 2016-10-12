@@ -168,13 +168,14 @@ Returns an [ES2015 `Promise` object](https://developer.mozilla.org/en-US/docs/We
 ## `.createReadStream(options)`
 
 Processes a stream of data and emits a `data` event each time a spike is found.
+Although you might notice a slight delay as *spike deduplication* happens under the hood.
 
 You can optionally pass an `options` object to tweak and adjust the precision of the analysis:
 
-- `slidingWindowSize` (_Integer_): size of the sliding window. _Default is `50`_;
-- `slidingWindowOverlap` (_Number_): number of elements to keep ahead of the sliding window. _Default is `20`_.
+- `bufferingFactor` (_Number_): buffer ratio of the sliding window, against `minPeakDistance`. _Default is `4`_;
+- `lookAheadFactor` (_Number_): additional buffer ratio to look ahead, against the sliding window size. _Default is `0.33`_.
 
-With this setup, `slayer` will read *70* element at once and will perform the next analysis every *50* new elements.
+With this setup, `slayer` will buffer *4 times* the amount of `minPeakDistance` with an additional *0.33 times* before performing an analysis before moving from *4 times* the amount of `minPeakDistance`.
 
 The following example demonstrates the streaming analysis of a file containing single values on each row of the document:
 
@@ -201,6 +202,12 @@ If you want to run the tests locally, simply run:
 
 ```bash
 npm test
+```
+
+If you want to run them continuously, then run:
+
+```bash
+npm test -- --watch
 ```
 
 # Licence
