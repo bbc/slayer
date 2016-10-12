@@ -1,6 +1,6 @@
 {
   "name": "slayer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JavaScript time series spike detection for Node.js; like the Octave findpeaks function.",
   "main": "index.js",
   "scripts": {
